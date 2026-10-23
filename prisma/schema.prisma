@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PRODUCTION
+  READY
+  DELIVERED
+  CANCELLED
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique @db.VarChar(100)
+  slug      String    @unique @db.VarChar(120)
+  sortOrder Int       @default(0) @map("sort_order")
+  products  Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  slug        String      @unique @db.VarChar(160)
+  name        String      @db.VarChar(200)
+  description String      @db.Text
+  /// Precio en COP. NULL cuando el producto es solo por cotización.
+  priceCop    Int?        @map("price_cop")
+  priceNote   String?     @map("price_note") @db.VarChar(255)
+  imageUrl    String?     @map("image_url") @db.VarChar(500)
+  isQuoteOnly Boolean     @default(false) @map("is_quote_only")
+  isActive    Boolean     @default(true) @map("is_active")
+  categoryId  Int         @map("category_id")
+  category    Category    @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@index([categoryId])
+  @@map("products")
+}
+
+model Order {
+  id            Int         @id @default(autoincrement())
+  customerName  String      @map("customer_name") @db.VarChar(150)
+  phone         String      @db.VarChar(30)
+  address       String      @db.VarChar(300)
+  notes         String?     @db.Text
+  /// Total estimado (suma de ítems con precio). No incluye ítems por cotizar.
+  totalCop      Int         @map("total_cop")
+  hasQuoteItems Boolean     @default(false) @map("has_quote_items")
+  status        OrderStatus @default(PENDING)
+  items         OrderItem[]
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id           Int     @id @default(autoincrement())
+  orderId      Int     @map("order_id")
+  productId    Int     @map("product_id")
+  /// Copia del nombre y precio al momento de pedir (histórico inmutable).
+  productName  String  @map("product_name") @db.VarChar(200)
+  unitPriceCop Int?    @map("unit_price_cop")
+  quantity     Int
+  notes        String? @db.VarChar(500)
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}

@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream font-sans text-cacao-900 antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-cacao-700 px-6 py-2.5 text-sm font-semibold text-cream shadow transition hover:bg-cacao-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center rounded-full bg-gold-500 px-6 py-2.5 text-sm font-semibold text-cacao-900 shadow transition hover:bg-gold-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cacao-700 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .input {
+    @apply w-full rounded-lg border border-cacao-200 bg-white px-3 py-2 text-sm text-cacao-900 placeholder:text-cacao-300 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500;
+  }
+}
