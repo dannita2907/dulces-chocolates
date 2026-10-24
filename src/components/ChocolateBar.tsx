@@ -130,7 +130,7 @@ export function ChocolateBar() {
         dy: Math.sin(a) * d - 30,
         rot: Math.random() * 540 - 270,
         size: 4 + Math.random() * 8,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS[Math.floor(Math.random() * COLORS.length)]!,
         tri: Math.random() < 0.6,
       };
     });
