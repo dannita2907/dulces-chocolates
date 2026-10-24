@@ -11,8 +11,12 @@ const serif = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" })
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: `${BRAND_NAME} | Hechos a mano`,
-  description: "Chocolates artesanales, estuches temáticos y pedidos personalizados.",
+  title: {
+    default: `${BRAND_NAME} | Hechos a mano`,
+    template: `%s | ${BRAND_NAME}`,
+  },
+  description: "Chocolates artesanales de alta calidad",
+
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
