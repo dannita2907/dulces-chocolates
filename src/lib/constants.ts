@@ -14,7 +14,7 @@ const dateFormatter = new Intl.DateTimeFormat("es-CO", {
 
 export const formatDate = (date: Date): string => dateFormatter.format(date);
 
-export const BRAND_NAME = "Dulce Rincón";
+export const BRAND_NAME = "Dulces Chocolates";
 
 export const PRICE_VARIATION_NOTICE = 
   "Los precios pueden variar según la personalización o requieran cotización directa.";
