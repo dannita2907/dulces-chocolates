@@ -1,13 +1,13 @@
 
 import { formatCop } from "@/lib/format";
- 
+
 export interface OrderMessageItem {
   productName: string;
   unitPriceCop: number | null;
   quantity: number;
   notes: string | null;
 }
- 
+
 export interface OrderMessageData {
   orderId: number;
   customerName: string;
@@ -18,16 +18,16 @@ export interface OrderMessageData {
   totalCop: number;
   hasQuoteItems: boolean;
 }
- 
+
 export function buildWhatsAppUrl(phoneNumber: string, message: string): string {
   return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 }
- 
+
 export function buildOrderMessage(order: OrderMessageData): string {
   const lines: string[] = [];
- 
-  lines.push(`¡Hola! Quiero confirmar mi pedido #${order.orderId} 🍫`, "");
- 
+
+  lines.push(`¡Hola! Quiero confirmar mi pedido #${order.orderId}`, "");
+
   lines.push("*Productos:*");
   for (const item of order.items) {
     const price =
@@ -36,7 +36,7 @@ export function buildOrderMessage(order: OrderMessageData): string {
     if (item.notes) lines.push(`   _Personalización: ${item.notes}_`);
   }
   lines.push("");
- 
+
   if (order.hasQuoteItems && order.totalCop === 0) {
     lines.push("*Total:* por cotizar");
   } else if (order.hasQuoteItems) {
@@ -45,12 +45,12 @@ export function buildOrderMessage(order: OrderMessageData): string {
     lines.push(`*Total:* ${formatCop(order.totalCop)}`);
   }
   lines.push("");
- 
+
   lines.push("*Mis datos:*");
   lines.push(`Nombre: ${order.customerName}`);
   lines.push(`Teléfono: ${order.phone}`);
   lines.push(`Dirección: ${order.address}`);
   if (order.notes) lines.push(`Notas: ${order.notes}`);
- 
+
   return lines.join("\n");
 }
