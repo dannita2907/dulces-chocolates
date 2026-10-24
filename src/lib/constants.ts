@@ -12,6 +12,8 @@ const dateFormatter = new Intl.DateTimeFormat("es-CO", {
   timeZone: "America/Bogota",
 });
 
+export const MAX_NOTES_LENGTH = 200;
+export const WHATSAPP_NUMBER = "573000000000"; // Reemplaza con tu número real de WhatsApp
 export const formatDate = (date: Date): string => dateFormatter.format(date);
 
 export const BRAND_NAME = "Dulces Chocolates";

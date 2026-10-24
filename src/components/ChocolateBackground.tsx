@@ -94,7 +94,7 @@ export function ChocolateBackground() {
     function makePart(initial: boolean): Part {
       const depth = rand(0.4, 1.2);
       return {
-        kind: KINDS[Math.floor(Math.random() * KINDS.length)],
+        kind: KINDS[Math.floor(Math.random() * KINDS.length)] as Kind,
         x: rand(0, W),
         y: initial ? rand(0, H) : rand(-60, -10),
         s: rand(8, 18) * depth,
@@ -104,7 +104,7 @@ export function ChocolateBackground() {
         ph: rand(0, 6.28),
         rot: rand(0, 6.28),
         vr: rand(-0.025, 0.025),
-        color: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)],
+        color: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)]!,
         a: rand(0.4, 0.9) * Math.min(1, depth + 0.2),
       };
     }
@@ -252,7 +252,7 @@ export function ChocolateBackground() {
           decay: rand(0.025, 0.045),
           g: 0.04,
           s: rand(2, 4.5),
-          c: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)],
+          c: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)]!,
           rot: 0,
           vr: 0,
         });
@@ -286,7 +286,7 @@ export function ChocolateBackground() {
       drawDrops();
 
       for (let i = sparks.length - 1; i >= 0; i--) {
-        const s = sparks[i];
+        const s = sparks[i]!;
         s.vy += s.g;
         s.x += s.vx;
         s.y += s.vy;
