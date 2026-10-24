@@ -1,20 +1,56 @@
-// Cambia el nombre de la tienda SOLO aquí (usa "Chocolates" si prefieres algo simple).
-export const BRAND_NAME = "Dulces Chocolates";
 
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "573002246669";
-
-export const PRICE_VARIATION_NOTICE =
-  "Los precios pueden variar según preferencias en cantidad de productos, diseños especiales y personalizaciones adicionales.";
-
-export const MAX_NOTES_LENGTH = 500;
-
-export function buildWhatsAppUrl(phoneNumber: string, message: string): string {
-  const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+import { formatCop } from "@/lib/format";
+ 
+export interface OrderMessageItem {
+  productName: string;
+  unitPriceCop: number | null;
+  quantity: number;
+  notes: string | null;
 }
-
-export function buildOrderMessage(orderData: any): string {
-  return `¡Hola! Me gustaría confirmar el siguiente pedido:\n` +
-    (orderData?.items ? orderData.items.map((i: any) => `- ${i.quantity}x ${i.name}`).join('\n') : '') +
-    `\nTotal: $${orderData?.total || 0}`;
+ 
+export interface OrderMessageData {
+  orderId: number;
+  customerName: string;
+  phone: string;
+  address: string;
+  notes: string | null;
+  items: OrderMessageItem[];
+  totalCop: number;
+  hasQuoteItems: boolean;
+}
+ 
+export function buildWhatsAppUrl(phoneNumber: string, message: string): string {
+  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+}
+ 
+export function buildOrderMessage(order: OrderMessageData): string {
+  const lines: string[] = [];
+ 
+  lines.push(`¡Hola! Quiero confirmar mi pedido #${order.orderId} 🍫`, "");
+ 
+  lines.push("*Productos:*");
+  for (const item of order.items) {
+    const price =
+      item.unitPriceCop === null ? "por cotizar" : formatCop(item.unitPriceCop * item.quantity);
+    lines.push(`• ${item.quantity} x ${item.productName} — ${price}`);
+    if (item.notes) lines.push(`   _Personalización: ${item.notes}_`);
+  }
+  lines.push("");
+ 
+  if (order.hasQuoteItems && order.totalCop === 0) {
+    lines.push("*Total:* por cotizar");
+  } else if (order.hasQuoteItems) {
+    lines.push(`*Total estimado:* ${formatCop(order.totalCop)} + productos por cotizar`);
+  } else {
+    lines.push(`*Total:* ${formatCop(order.totalCop)}`);
+  }
+  lines.push("");
+ 
+  lines.push("*Mis datos:*");
+  lines.push(`Nombre: ${order.customerName}`);
+  lines.push(`Teléfono: ${order.phone}`);
+  lines.push(`Dirección: ${order.address}`);
+  if (order.notes) lines.push(`Notas: ${order.notes}`);
+ 
+  return lines.join("\n");
 }
