@@ -30,11 +30,10 @@ const categories: SeedCategory[] = [
   { name: "Casitas y cofres", sortOrder: 3 },
   { name: "Halloween", sortOrder: 4 },
   { name: "Fechas especiales", sortOrder: 5 },
-  { name: "Personalizados", sortOrder: 6 },
 ];
 
 const products: SeedProduct[] = [
-  { name: "Minitrufas en frasco", priceCop: 12000, category: "Bombones y trufas", description: "Minitrufas artesanales presentadas en frasco, ideales para regalar." },
+  { name: "Minitrufas en frasco", priceCop: 15000, category: "Bombones y trufas", description: "Minitrufas artesanales presentadas en frasco, ideales para regalar." },
   { name: "Juego de corbatas", priceCop: 30000, category: "Estuches temáticos", description: "Corbatas de chocolate en estuche, un detalle original para papá." },
   { name: "Estuche de herramientas", priceCop: 22000, category: "Estuches temáticos", description: "Herramientas de chocolate en estuche de presentación." },
   { name: "Estuche de botellas de licor (chocolate relleno)", priceCop: 25000, category: "Estuches temáticos", description: "Botellas de chocolate rellenas, presentadas en estuche." },
@@ -53,19 +52,12 @@ const products: SeedProduct[] = [
   { name: "Chocolates de diseño con serigrafía y rellenos x 10 unidades", priceCop: 30000, category: "Bombones y trufas", description: "Diez chocolates rellenos con diseño en serigrafía." },
   { name: "Cofre de chocolate con serigrafía", priceCop: 40000, category: "Casitas y cofres", description: "Cofre de chocolate decorado con serigrafía." },
   { name: "Chocolates de osito rellenos x 10 unidades", priceCop: 25000, category: "Bombones y trufas", description: "Diez ositos de chocolate rellenos." },
-  { name: "Casita de Halloween", priceCop: 10000, category: "Halloween", description: "Casita de chocolate con motivo de Halloween." },
+  { name: "Casita de Halloween", priceCop: 40000, category: "Halloween", description: "Casita de chocolate con motivo de Halloween." },
   { name: "Diseños de chocolate motivo Halloween x 10 unidades", priceCop: 20000, category: "Halloween", description: "Diez chocolates con diseños de Halloween." },
   { name: "Caja de patitas de chocolate rellenos x 10 unidades", priceCop: 35000, category: "Bombones y trufas", description: "Diez patitas de chocolate rellenas." },
   { name: "Cofre de chocolate negro semiamargo", priceCop: 20000, category: "Casitas y cofres", description: "Cofre de chocolate negro semiamargo." },
   { name: "Placa para mamá", priceCop: 13000, category: "Fechas especiales", description: "Placa de chocolate pensada como detalle para mamá." },
-  {
-    name: "Pedidos personalizados",
-    priceCop: null,
-    category: "Personalizados",
-    description: "Cuéntanos qué necesitas (diseño, cantidad, tipo de chocolate, colores, dedicatoria) y te cotizamos.",
-    priceNote: "Precio sujeto a cotización según requerimiento",
-    isQuoteOnly: true,
-  },
+  { name: "Fresas con chocolate (tematica mariquitas)", priceCop: 8000, category: "Bombones y trufas", description: "Fresas con cholate con tema de mariquitas.", },
 ];
 
 async function main(): Promise<void> {
