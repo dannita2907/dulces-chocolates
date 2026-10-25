@@ -57,7 +57,7 @@ const products: SeedProduct[] = [
   { name: "Caja de patitas de chocolate rellenos x 10 unidades", priceCop: 35000, category: "Bombones y trufas", description: "Diez patitas de chocolate rellenas." },
   { name: "Cofre de chocolate negro semiamargo", priceCop: 20000, category: "Casitas y cofres", description: "Cofre de chocolate negro semiamargo." },
   { name: "Placa para mamá", priceCop: 13000, category: "Fechas especiales", description: "Placa de chocolate pensada como detalle para mamá." },
-  { name: "Fresas con chocolate (tematica mariquitas)", priceCop: 8000, category: "Bombones y trufas", description: "Fresas con cholate con tema de mariquitas.", },
+  { name: "Fresas con chocolate (tematica mariquitas)", priceCop: 8000, category: "Bombones y trufas", description: "Fresas con chocolate con tema de mariquitas.", },
 ];
 
 async function main(): Promise<void> {
